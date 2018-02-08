@@ -39,7 +39,7 @@ namespace SimpleCharts
 		public SKColor DefaultTextColor { get; set; } = SKColors.Gray;
 		public string ColorProperty { get; set; }
 		public string TextColorProperty { get; set; }
-		public bool AllowsZoom { get; set; } = true;
+		public bool AllowsZoom { get; set; }
 		/// <summary>
 		/// Gets or sets the data entries.
 		/// </summary>
