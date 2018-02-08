@@ -44,7 +44,7 @@ namespace SimpleChartsSampleForms.ViewModels
 			{
 				Stocks.Add(new StockPrice
 				{
-					Price = rand.NextDouble(),
+					Price = Math.Round(rand.NextDouble(),3),
 					Symbol = "FAKE",
 					Time = (DateTime.Now - start).TotalSeconds
 				});
