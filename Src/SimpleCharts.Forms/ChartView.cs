@@ -1,12 +1,10 @@
-﻿// Copyright (c) Aloïs DENIEL. All rights reserved.
-// Licensed under the MIT License. See LICENSE in the project root for license information.
+﻿using Xamarin.Forms;
+using SkiaSharp.Views.Forms;
 
 namespace SimpleCharts.Forms
 {
-	using Xamarin.Forms;
-	using SkiaSharp.Views.Forms;
 
-    public class ChartView : SKCanvasView
+	public class ChartView : SKCanvasView
 	{
 		public ChartView()
 		{
@@ -26,9 +24,12 @@ namespace SimpleCharts.Forms
 					oldChart.DrawInvalidated = null;
 				SetValue(ChartProperty, value);
 				if (value != null)
-					value.DrawInvalidated = ()=> Device.BeginInvokeOnMainThread(InvalidateSurface);
+					value.DrawInvalidated = () => Device.BeginInvokeOnMainThread(InvalidateSurface);
+				var wraper = value.Parent as BindableObject;
+				if (wraper != null)
+					wraper.BindingContext = BindingContext;
 			}
-        }
+		}
 
 		private static void OnChartChanged(BindableObject bindable, object oldValue, object newValue)
 		{
@@ -41,6 +42,34 @@ namespace SimpleCharts.Forms
 			{
 				this.Chart.Draw(e.Surface.Canvas, e.Info.Width, e.Info.Height);
 			}
+		}
+		protected override void OnPropertyChanged(string propertyName = null)
+		{
+			base.OnPropertyChanged(propertyName);
+			if (propertyName == nameof(Chart))
+			{
+				var chart = Chart;
+				if (chart != null)
+					chart.DrawInvalidated = () => Device.BeginInvokeOnMainThread(InvalidateSurface);
+			}
+		}
+		protected override void OnPropertyChanging(string propertyName = null)
+		{
+			if (propertyName == nameof(Chart))
+			{
+				var oldChart = Chart;
+				if (oldChart != null)
+					oldChart.DrawInvalidated = null;
+			}
+			base.OnPropertyChanging(propertyName);
+		}
+		protected override void OnBindingContextChanged()
+		{
+			base.OnBindingContextChanged();
+
+			var wraper = Chart?.Parent as BindableObject;
+			if (wraper != null)
+				wraper.BindingContext = BindingContext;
 		}
 	}
 }

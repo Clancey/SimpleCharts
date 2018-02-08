@@ -9,7 +9,11 @@ namespace SimpleCharts
 	public abstract class Chart
 	{
 		#region Properties
-
+		/// <summary>
+		/// Used by Xamarin Forms
+		/// </summary>
+		/// <value>The parent.</value>
+		internal object Parent { get; set; }
 		/// <summary>
 		/// Gets or sets the global margin.
 		/// </summary>
