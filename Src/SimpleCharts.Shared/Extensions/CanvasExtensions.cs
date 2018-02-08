@@ -1,10 +1,7 @@
-﻿// Copyright (c) Aloïs DENIEL. All rights reserved.
-// Licensed under the MIT License. See LICENSE in the project root for license information.
+﻿using SkiaSharp;
 
 namespace Microcharts
 {
-	using SkiaSharp;
-
 	public static class CanvasExtensions
 	{
 		public static void DrawCaptionLabels(this SKCanvas canvas, string label, SKColor labelColor, string value, SKColor valueColor, float textSize, SKPoint point, SKTextAlign horizontalAlignment)

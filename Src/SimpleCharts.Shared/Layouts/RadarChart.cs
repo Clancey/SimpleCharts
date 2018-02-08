@@ -1,12 +1,9 @@
-﻿// Copyright (c) Aloïs DENIEL. All rights reserved.
-// Licensed under the MIT License. See LICENSE in the project root for license information.
+﻿using System;
+using System.Linq;
+using SkiaSharp;
 
 namespace Microcharts
 {
-	using System;
-	using System.Linq;
-	using SkiaSharp;
-
 	/// <summary>
 	/// ![chart](../images/Radar.png)
 	/// 

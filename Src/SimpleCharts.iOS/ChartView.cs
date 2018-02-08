@@ -1,15 +1,21 @@
 ﻿#if __IOS__
-namespace Microcharts.iOS
-{
-    using UIKit;
-    using SkiaSharp.Views.iOS;
+
+using UIKit;
+using SkiaSharp.Views.iOS;
 #else
-namespace Microcharts.macOS
-{
-	using SkiaSharp.Views.Mac;
+using SkiaSharp.Views.Mac;
 #endif
 
-	public class ChartView : SKCanvasView
+namespace
+#if __IOS__
+Microcharts.iOS
+#else
+Microcharts.MacOS
+#endif
+
+{
+
+public class ChartView : SKCanvasView
 	{
 		public ChartView()
 		{

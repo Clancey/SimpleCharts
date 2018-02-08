@@ -1,10 +1,11 @@
-﻿namespace Microcharts.Droid
+﻿using Android.Content;
+using SkiaSharp.Views.Android;
+using Android.Util;
+using System;
+using Android.Runtime;
+
+namespace Microcharts.Droid
 {
-	using Android.Content;
-	using SkiaSharp.Views.Android;
-	using Android.Util;
-	using System;
-	using Android.Runtime;
 
 	public class ChartView : SKCanvasView
 	{
