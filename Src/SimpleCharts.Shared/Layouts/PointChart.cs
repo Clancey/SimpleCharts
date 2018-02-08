@@ -74,7 +74,7 @@ namespace SimpleCharts
 				var entry = this.Entries.ElementAt(i);
 
 				var x = this.Margin + (itemSize.Width / 2) + (i * (itemSize.Width + this.Margin));
-				var y = headerHeight + (((this.MaxValue - entry.Value) / this.ValueRange) * itemSize.Height);
+				var y = headerHeight + (((this.MaxValue - GetValue(entry)) / this.ValueRange) * itemSize.Height);
 				var point = new SKPoint(x, y);
 				result.Add(point);
 			}
@@ -94,17 +94,17 @@ namespace SimpleCharts
 				var entry = this.Entries.ElementAt(i);
 				var point = points[i];
 
-				if (!string.IsNullOrEmpty(entry.Label))
+				if (!string.IsNullOrEmpty(GetLabel(entry)))
 				{
 					using (var paint = new SKPaint())
 					{
 						paint.TextSize = this.LabelTextSize;
 						paint.IsAntialias = true;
-						paint.Color = entry.TextColor;
+						paint.Color = GetTextColor(entry);
 						paint.IsStroke = false;
 
 						var bounds = new SKRect();
-						var text = entry.Label;
+						var text = GetLabel(entry);
 						paint.MeasureText(text, ref bounds);
 
 						if (bounds.Width > itemSize.Width)
@@ -133,7 +133,7 @@ namespace SimpleCharts
 				{
 					var entry = this.Entries.ElementAt(i);
 					var point = points[i];
-					canvas.DrawPoint(point, entry.Color, this.PointSize, this.PointMode);
+					canvas.DrawPoint(point, GetColor(entry), this.PointSize, this.PointMode);
 				}
 			}
 		}
@@ -147,12 +147,13 @@ namespace SimpleCharts
 					var entry = this.Entries.ElementAt(i);
 					var point = points[i];
 					var y = Math.Min(origin, point.Y);
+					var color = GetColor(entry);
 
-					using (var shader = SKShader.CreateLinearGradient(new SKPoint(0, origin), new SKPoint(0, point.Y), new[] { entry.Color.WithAlpha(this.PointAreaAlpha), entry.Color.WithAlpha((byte)(this.PointAreaAlpha / 3)) }, null, SKShaderTileMode.Clamp))
+					using (var shader = SKShader.CreateLinearGradient(new SKPoint(0, origin), new SKPoint(0, point.Y), new[] { color.WithAlpha(this.PointAreaAlpha), color.WithAlpha((byte)(this.PointAreaAlpha / 3)) }, null, SKShaderTileMode.Clamp))
 					using (var paint = new SKPaint
 					{
 						Style = SKPaintStyle.Fill,
-						Color = entry.Color.WithAlpha(this.PointAreaAlpha),
+						Color = color.WithAlpha(this.PointAreaAlpha),
 					})
 					{
 						paint.Shader = shader;
@@ -172,8 +173,8 @@ namespace SimpleCharts
 					var entry = this.Entries.ElementAt(i);
 					var point = points[i];
 					var isAbove = point.Y > (this.Margin + (itemSize.Height / 2));
-
-					if (!string.IsNullOrEmpty(entry.ValueLabel))
+					var labelText = GetLabel(entry);
+					if (!string.IsNullOrEmpty(labelText))
 					{
 						using (new SKAutoCanvasRestore(canvas))
 						{
@@ -182,11 +183,11 @@ namespace SimpleCharts
 								paint.TextSize = this.LabelTextSize;
 								paint.FakeBoldText = true;
 								paint.IsAntialias = true;
-								paint.Color = entry.Color;
+								paint.Color = GetColor(entry);
 								paint.IsStroke = false;
 
 								var bounds = new SKRect();
-								var text = entry.ValueLabel;
+								var text = labelText;
 								paint.MeasureText(text, ref bounds);
 
 								canvas.RotateDegrees(90);
@@ -204,7 +205,7 @@ namespace SimpleCharts
 		{
 			var result = this.Margin;
 
-			if (this.Entries.Any(e => !string.IsNullOrEmpty(e.Label)))
+			if (this.Entries.Any(e => !string.IsNullOrEmpty(GetLabel(e))))
 			{
 				result += this.LabelTextSize + this.Margin;
 			}
@@ -235,13 +236,14 @@ namespace SimpleCharts
 				paint.TextSize = this.LabelTextSize;
 				return this.Entries.Select(e =>
 				{
-					if (string.IsNullOrEmpty(e.ValueLabel))
+					var label = GetValueLabel(e);
+					if (string.IsNullOrEmpty(label))
 					{
 						return SKRect.Empty;
 					}
 
 					var bounds = new SKRect();
-					var text = e.ValueLabel;
+					var text = label;
 					paint.MeasureText(text, ref bounds);
 					return bounds;
 				}).ToArray();

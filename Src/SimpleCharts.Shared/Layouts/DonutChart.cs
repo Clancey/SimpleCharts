@@ -30,21 +30,21 @@ namespace SimpleCharts
 			using (new SKAutoCanvasRestore(canvas))
 			{
 				canvas.Translate(width / 2, height / 2);
-				var sumValue = this.Entries.Sum(x => Math.Abs(x.Value));
+				var sumValue = this.Entries?.Sum(x => Math.Abs(GetValue(x))) ?? 0;
 				var radius = (Math.Min(width, height) - (2 * Margin)) / 2;
 
 				var start = 0.0f;
 				for (int i = 0; i < this.Entries.Count(); i++)
 				{
 					var entry = this.Entries.ElementAt(i);
-					var end = start + (Math.Abs(entry.Value) / sumValue);
+					var end = start + (Math.Abs(GetValue(entry)) / sumValue);
 
 					// Sector
 					var path = RadialHelpers.CreateSectorPath(start, end, radius, radius * this.HoleRadius);
 					using (var paint = new SKPaint
 					{
 						Style = SKPaintStyle.Fill,
-						Color = entry.Color,
+						Color = GetColor(entry),
 						IsAntialias = true,
 					})
 					{
@@ -58,17 +58,17 @@ namespace SimpleCharts
 
 		private void DrawCaption(SKCanvas canvas, int width, int height)
 		{
-			var sumValue = this.Entries.Sum(x => Math.Abs(x.Value));
-			var rightValues = new List<Entry>();
-			var leftValues = new List<Entry>();
+			var sumValue = this.Entries.Sum(x => Math.Abs(GetValue(x)));
+			var rightValues = new List<object>();
+			var leftValues = new List<object>();
 
 			int i = 0;
 			var current = 0.0f;
-			while (i < this.Entries.Count() && (current < sumValue / 2))
+			while (i < this.Entries?.Count() && (current < sumValue / 2))
 			{
 				var entry = this.Entries.ElementAt(i);
 				rightValues.Add(entry);
-				current += Math.Abs(entry.Value);
+				current += Math.Abs(GetValue(entry));
 				i++;
 			}
 

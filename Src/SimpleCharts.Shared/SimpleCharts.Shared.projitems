@@ -21,5 +21,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Layouts\PointMode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Layouts\RadarChart.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Layouts\RadialGaugeChart.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ReflectionHelper.cs" />
   </ItemGroup>
 </Project>

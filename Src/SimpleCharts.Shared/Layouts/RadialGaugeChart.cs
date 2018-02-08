@@ -33,9 +33,9 @@ namespace SimpleCharts
 		/// <value>The start angle.</value>
 		public float StartAngle { get; set; } = -90;
 
-		private float AbsoluteMinimum => this.Entries.Select(x => x.Value).Concat(new[] { this.MaxValue, this.MinValue, this.InternalMinValue ?? 0 }).Min(x => Math.Abs(x));
+		private float AbsoluteMinimum => this.Entries.Select(x => GetValue(x)).Concat(new[] { this.MaxValue, this.MinValue, this.InternalMinValue ?? 0 }).Min(x => Math.Abs(x));
 
-		private float AbsoluteMaximum => this.Entries.Select(x => x.Value).Concat(new[] { this.MaxValue, this.MinValue, this.InternalMinValue ?? 0 }).Max(x => Math.Abs(x));
+		private float AbsoluteMaximum => this.Entries.Select(x => GetValue(x)).Concat(new[] { this.MaxValue, this.MinValue, this.InternalMinValue ?? 0 }).Max(x => Math.Abs(x));
 
 		private float ValueRange => this.AbsoluteMaximum - this.AbsoluteMinimum;
 
@@ -43,13 +43,13 @@ namespace SimpleCharts
 
 		#region Methods
 
-		public void DrawGaugeArea(SKCanvas canvas, Entry entry, float radius, int cx, int cy, float strokeWidth)
+		public void DrawGaugeArea(SKCanvas canvas, object entry, float radius, int cx, int cy, float strokeWidth)
 		{
 			using (var paint = new SKPaint
 			{
 				Style = SKPaintStyle.Stroke,
 				StrokeWidth = strokeWidth,
-				Color = entry.Color.WithAlpha(this.LineAreaAlpha),
+				Color = GetColor(entry).WithAlpha(this.LineAreaAlpha),
 				IsAntialias = true,
 			})
 			{
@@ -57,20 +57,20 @@ namespace SimpleCharts
 			}
 		}
 
-		public void DrawGauge(SKCanvas canvas, Entry entry, float radius, int cx, int cy, float strokeWidth)
+		public void DrawGauge(SKCanvas canvas, object entry, float radius, int cx, int cy, float strokeWidth)
 		{
 			using (var paint = new SKPaint
 			{
 				Style = SKPaintStyle.Stroke,
 				StrokeWidth = strokeWidth,
 				StrokeCap = SKStrokeCap.Round,
-				Color = entry.Color,
+				Color = GetColor(entry),
 				IsAntialias = true,
 			})
 			{
 				using (SKPath path = new SKPath())
 				{
-					var sweepAngle = 360 * (Math.Abs(entry.Value) - this.AbsoluteMinimum) / this.ValueRange;
+					var sweepAngle = 360 * (Math.Abs(GetValue(entry)) - this.AbsoluteMinimum) / this.ValueRange;
 					path.AddArc(SKRect.Create(cx - radius, cy - radius, 2 * radius, 2 * radius), this.StartAngle, sweepAngle);
 					canvas.DrawPath(path, paint);
 				}
@@ -81,14 +81,14 @@ namespace SimpleCharts
 		{
 			this.DrawCaption(canvas, width, height);
 
-			var sumValue = this.Entries.Sum(x => Math.Abs(x.Value));
+			var sumValue = this.Entries.Sum(x => Math.Abs(GetValue(x)));
 			var radius = (Math.Min(width, height) - (2 * Margin)) / 2;
 			var cx = width / 2;
 			var cy = height / 2;
 			var lineWidth = (this.LineSize < 0) ? (radius / ((this.Entries.Count() + 1) * 2)) : this.LineSize;
 			var radiusSpace = lineWidth * 2;
 
-			for (int i = 0; i < this.Entries.Count(); i++)
+			for (int i = 0; i < this.Entries?.Count(); i++)
 			{
 				var entry = this.Entries.ElementAt(i);
 				var entryRadius = (i + 1) * radiusSpace;
@@ -100,12 +100,12 @@ namespace SimpleCharts
 		private void DrawCaption(SKCanvas canvas, int width, int height)
 		{
 			var range = this.ValueRange;
-			var rightValues = new List<Entry>();
-			var leftValues = new List<Entry>();
+			var rightValues = new List<object>();
+			var leftValues = new List<object>();
 
 			foreach (var entry in this.Entries)
 			{
-				if (Math.Abs(entry.Value) < range / 2)
+				if (Math.Abs(GetValue(entry)) < range / 2)
 				{
 					rightValues.Add(entry);
 				}

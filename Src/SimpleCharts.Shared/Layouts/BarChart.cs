@@ -76,7 +76,7 @@ namespace SimpleCharts
 					using (var paint = new SKPaint
 					{
 						Style = SKPaintStyle.Fill,
-						Color = entry.Color,
+						Color = GetColor(entry),
 					})
 					{
 						var x = point.X - (itemSize.Width / 2);
@@ -117,10 +117,10 @@ namespace SimpleCharts
 					using (var paint = new SKPaint
 					{
 						Style = SKPaintStyle.Fill,
-						Color = entry.Color.WithAlpha(this.BarAreaAlpha),
+						Color = GetColor(entry).WithAlpha(this.BarAreaAlpha),
 					})
 					{
-						var max = entry.Value > 0 ? headerHeight : headerHeight + itemSize.Height;
+						var max = GetValue(entry) > 0 ? headerHeight : headerHeight + itemSize.Height;
 						var height = Math.Abs(max - point.Y);
 						var y = Math.Min(max, point.Y);
 						canvas.DrawRect(SKRect.Create(point.X - (itemSize.Width / 2), y, itemSize.Width, height), paint);

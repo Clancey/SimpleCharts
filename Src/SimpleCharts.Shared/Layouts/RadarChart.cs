@@ -33,9 +33,9 @@ namespace SimpleCharts
 
 		public float PointSize { get; set; } = 14;
 
-		private float AbsoluteMinimum => this.Entries.Select(x => x.Value).Concat(new[] { this.MaxValue, this.MinValue, this.InternalMinValue ?? 0 }).Min(x => Math.Abs(x));
+		private float AbsoluteMinimum => this.Entries.Select(x => GetValue(x)).Concat(new[] { this.MaxValue, this.MinValue, this.InternalMinValue ?? 0 }).Min(x => Math.Abs(x));
 
-		private float AbsoluteMaximum => this.Entries.Select(x => x.Value).Concat(new[] { this.MaxValue, this.MinValue, this.InternalMinValue ?? 0 }).Max(x => Math.Abs(x));
+		private float AbsoluteMaximum => this.Entries.Select(x => GetValue(x)).Concat(new[] { this.MaxValue, this.MinValue, this.InternalMinValue ?? 0 }).Max(x => Math.Abs(x));
 
 		private float ValueRange => this.AbsoluteMaximum - this.AbsoluteMinimum;
 
@@ -53,8 +53,10 @@ namespace SimpleCharts
 				{
 					var result = 0.0f;
 
-					var hasLabel = !string.IsNullOrEmpty(x.Label);
-					var hasValueLabel = !string.IsNullOrEmpty(x.ValueLabel);
+					var label = GetLabel(x);
+					var valueLabel = GetValueLabel(x);
+					var hasLabel = !string.IsNullOrEmpty(label);
+					var hasValueLabel = !string.IsNullOrEmpty(valueLabel);
 					if (hasLabel || hasValueLabel)
 					{
 						var hasOffset = hasLabel && hasValueLabel;
@@ -82,7 +84,7 @@ namespace SimpleCharts
 
 				var nextEntry = this.Entries.First();
 				var nextAngle = startAngle;
-				var nextPoint = this.GetPoint(nextEntry.Value, center, nextAngle, radius);
+				var nextPoint = this.GetPoint(GetValue(nextEntry), center, nextAngle, radius);
 
 				this.DrawBorder(canvas, center, radius);
 
@@ -95,7 +97,7 @@ namespace SimpleCharts
 					var nextIndex = (i + 1) % total;
 					nextAngle = startAngle + (rangeAngle * nextIndex);
 					nextEntry = this.Entries.ElementAt(nextIndex);
-					nextPoint = this.GetPoint(nextEntry.Value, center, nextAngle, radius);
+					nextPoint = this.GetPoint(GetValue(nextEntry), center, nextAngle, radius);
 
 					// Border center bars
 					using (var paint = new SKPaint()
@@ -111,22 +113,23 @@ namespace SimpleCharts
 					}
 
 					// Values points and lines
+
+					var color = GetColor(entry);
 					using (var paint = new SKPaint()
 					{
 						Style = SKPaintStyle.Stroke,
 						StrokeWidth = this.BorderLineSize,
-						Color = entry.Color.WithAlpha((byte)(entry.Color.Alpha * 0.75f)),
+						Color = color.WithAlpha((byte)(color.Alpha * 0.75f)),
 						PathEffect = SKPathEffect.CreateDash(new[] { this.BorderLineSize, this.BorderLineSize * 2 }, 0),
 						IsAntialias = true,
 					})
 					{
-						var amount = Math.Abs(entry.Value - this.AbsoluteMinimum) / this.ValueRange;
+						var amount = Math.Abs(GetValue(entry) - this.AbsoluteMinimum) / this.ValueRange;
 						canvas.DrawCircle(center.X, center.Y, radius * amount, paint);
 					}
-
-					canvas.DrawGradientLine(center, entry.Color.WithAlpha(0), point, entry.Color.WithAlpha((byte)(entry.Color.Alpha * 0.75f)), this.LineSize);
-					canvas.DrawGradientLine(point, entry.Color, nextPoint, nextEntry.Color, this.LineSize);
-					canvas.DrawPoint(point, entry.Color, this.PointSize, this.PointMode);
+					canvas.DrawGradientLine(center, color.WithAlpha(0), point, color.WithAlpha((byte)(color.Alpha * 0.75f)), this.LineSize);
+					canvas.DrawGradientLine(point, color, nextPoint, GetColor(nextEntry), this.LineSize);
+					canvas.DrawPoint(point, color, this.PointSize, this.PointMode);
 
 					// Labels
 					var labelPoint = this.GetPoint(this.MaxValue, center, angle, radius + this.LabelTextSize + (this.PointSize / 2));
@@ -141,7 +144,7 @@ namespace SimpleCharts
 						alignment = SKTextAlign.Right;
 					}
 
-					canvas.DrawCaptionLabels(entry.Label, entry.TextColor, entry.ValueLabel, entry.Color, this.LabelTextSize, labelPoint, alignment);
+					canvas.DrawCaptionLabels(GetLabel(entry), GetTextColor(entry), GetValueLabel(entry), color, this.LabelTextSize, labelPoint, alignment);
 				}
 			}
 		}

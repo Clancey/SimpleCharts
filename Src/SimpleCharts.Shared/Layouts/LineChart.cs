@@ -166,7 +166,7 @@ namespace SimpleCharts
 			return SKShader.CreateLinearGradient(
 				new SKPoint(startX, 0),
 				new SKPoint(endX, 0),
-				this.Entries.Select(x => x.Color.WithAlpha(alpha)).ToArray(),
+				this.Entries.Select(x => GetColor(x).WithAlpha(alpha)).ToArray(),
 				null,
 				SKShaderTileMode.Clamp);
 		}
