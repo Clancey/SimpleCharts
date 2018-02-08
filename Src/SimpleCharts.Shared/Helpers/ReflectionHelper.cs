@@ -8,7 +8,8 @@ namespace SimpleCharts
 			if (entry == null)
 				return 0;
 			var prop = entry.GetType().GetProperty(property);
-			return (float) prop.GetValue(entry);
+			var val = prop.GetValue(entry);
+			return (float)Convert.ToDouble(val);
 		}
 		public static string GetStringValue(this object entry, string property)
 		{

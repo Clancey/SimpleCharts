@@ -59,7 +59,7 @@ namespace SimpleCharts
 
 		protected SKSize CalculateItemSize(int width, int height, float footerHeight, float headerHeight)
 		{
-			var total = this.Entries.Count();
+			var total = this.Entries?.Count() ?? 0;
 			var w = (width - ((total + 1) * this.Margin)) / total;
 			var h = height - this.Margin - footerHeight - headerHeight;
 			return new SKSize(w, h);
@@ -69,7 +69,7 @@ namespace SimpleCharts
 		{
 			var result = new List<SKPoint>();
 
-			for (int i = 0; i < this.Entries.Count(); i++)
+			for (int i = 0; i < this.Entries?.Count(); i++)
 			{
 				var entry = this.Entries.ElementAt(i);
 
@@ -89,7 +89,7 @@ namespace SimpleCharts
 
 		protected void DrawLabels(SKCanvas canvas, SKPoint[] points, SKSize itemSize, int height, float footerHeight)
 		{
-			for (int i = 0; i < this.Entries.Count(); i++)
+			for (int i = 0; i < this.Entries?.Count(); i++)
 			{
 				var entry = this.Entries.ElementAt(i);
 				var point = points[i];
@@ -173,7 +173,7 @@ namespace SimpleCharts
 					var entry = this.Entries.ElementAt(i);
 					var point = points[i];
 					var isAbove = point.Y > (this.Margin + (itemSize.Height / 2));
-					var labelText = GetLabel(entry);
+					var labelText = GetValueLabel(entry);
 					if (!string.IsNullOrEmpty(labelText))
 					{
 						using (new SKAutoCanvasRestore(canvas))
@@ -205,7 +205,7 @@ namespace SimpleCharts
 		{
 			var result = this.Margin;
 
-			if (this.Entries.Any(e => !string.IsNullOrEmpty(GetLabel(e))))
+			if (this.Entries?.Any(e => !string.IsNullOrEmpty(GetLabel(e))) ?? false)
 			{
 				result += this.LabelTextSize + this.Margin;
 			}
@@ -217,7 +217,7 @@ namespace SimpleCharts
 		{
 			var result = this.Margin;
 
-			if (this.Entries.Any())
+			if (this.Entries?.Any()?? false)
 			{
 				var maxValueWidth = valueLabelSizes.Max(x => x.Width);
 				if (maxValueWidth > 0)
@@ -234,7 +234,7 @@ namespace SimpleCharts
 			using (var paint = new SKPaint())
 			{
 				paint.TextSize = this.LabelTextSize;
-				return this.Entries.Select(e =>
+				return this.Entries?.Select(e =>
 				{
 					var label = GetValueLabel(e);
 					if (string.IsNullOrEmpty(label))
