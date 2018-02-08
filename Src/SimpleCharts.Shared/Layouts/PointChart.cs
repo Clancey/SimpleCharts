@@ -56,7 +56,7 @@ namespace SimpleCharts
 
 				if (this.InternalMinValue2 == null)
 				{
-					return (cachedMinValue2 = Math.Min(0, this.Entries.Min(x => GetValue2(x)))).Value;
+					return (cachedMinValue2 = this.Entries.Min(x => GetValue2(x))).Value;
 				}
 
 				return (cachedMinValue2 = Math.Min(this.InternalMinValue2.Value, this.Entries.Min(x => GetValue2(x)))).Value;
@@ -69,7 +69,7 @@ namespace SimpleCharts
 		/// Gets or sets the maximum value from entries. If not defined, it will be the maximum between zero and the 
 		/// maximum entry value.
 		/// </summary>
-		/// <value>The minimum value.</value>
+		/// <value>The maximum value.</value>
 		public float MaxValue2
 		{
 			get

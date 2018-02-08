@@ -39,7 +39,7 @@ namespace SimpleCharts
 		public SKColor DefaultTextColor { get; set; } = SKColors.Gray;
 		public string ColorProperty { get; set; }
 		public string TextColorProperty { get; set; }
-
+		public bool AllowsZoom { get; set; } = true;
 		/// <summary>
 		/// Gets or sets the data entries.
 		/// </summary>
@@ -90,10 +90,13 @@ namespace SimpleCharts
 					return cachedMinValue.Value;
 				if (this.InternalMinValue == null)
 				{
-					return (cachedMinValue = Math.Min(0, this.Entries?.Min(x => GetValue(x)) ?? 0)).Value;
+					var min = this.Entries.Min(x => GetValue(x));
+					if (!AllowsZoom)
+						min = Math.Min(0, min);
+					return (cachedMinValue = min).Value;
 				}
 
-				return (cachedMinValue = Math.Min(this.InternalMinValue.Value, this.Entries?.Min(x => GetValue(x)) ?? 0)).Value;
+				return (cachedMinValue = Math.Min(this.InternalMinValue.Value, this.Entries.Min(x => GetValue(x)))).Value;
 			}
 
 			set => this.InternalMinValue = value;
@@ -103,7 +106,7 @@ namespace SimpleCharts
 		/// Gets or sets the maximum value from entries. If not defined, it will be the maximum between zero and the 
 		/// maximum entry value.
 		/// </summary>
-		/// <value>The minimum value.</value>
+		/// <value>The maximum value.</value>
 		public float MaxValue
 		{
 			get

@@ -11,6 +11,10 @@ namespace SimpleCharts
 	/// </summary>
 	public class RadarChart : Chart
 	{
+		public RadarChart()
+		{
+			AllowsZoom = false;
+		}
 		#region Constants
 
 		private const float Epsilon = 0.01f;

@@ -12,6 +12,10 @@ namespace SimpleCharts
 	/// </summary>
 	public class DonutChart : Chart
 	{
+		public DonutChart()
+		{
+			AllowsZoom = false;
+		}
 		#region Properties
 
 		/// <summary>

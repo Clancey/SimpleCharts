@@ -17,6 +17,7 @@ namespace SimpleCharts
 		public BarChart()
 		{
 			this.PointSize = 0;
+			AllowsZoom = false;
 		}
 
 		#endregion

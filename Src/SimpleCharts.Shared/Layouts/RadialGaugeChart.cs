@@ -13,6 +13,10 @@ namespace SimpleCharts
 	/// </summary>
 	public class RadialGaugeChart : Chart
 	{
+		public RadialGaugeChart()
+		{
+			AllowsZoom = false;
+		}
 		#region Properties
 
 		/// <summary>
