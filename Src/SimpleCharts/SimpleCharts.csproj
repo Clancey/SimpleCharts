@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- One day VS4Mac will support this! -->
+    <!-- <TargetFrameworks>netstandard2.0;net45;MonoAndroid70;Xamarin.iOS10;uap10.0</TargetFrameworks> -->
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SkiaSharp" Version="1.59.3" />
+  </ItemGroup>
+  <Import Project="..\SimpleCharts.Shared\SimpleCharts.Shared.projitems" Label="Shared" Condition="Exists('..\SimpleCharts.Shared\SimpleCharts.Shared.projitems')" />
+</Project>
