@@ -4,7 +4,7 @@ using Android.Util;
 using System;
 using Android.Runtime;
 
-namespace Microcharts.Droid
+namespace SimpleCharts.Droid
 {
 
 	public class ChartView : SKCanvasView

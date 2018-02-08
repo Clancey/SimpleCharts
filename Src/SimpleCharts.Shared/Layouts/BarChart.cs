@@ -3,7 +3,7 @@ using System.Linq;
 
 using SkiaSharp;
 
-namespace Microcharts
+namespace SimpleCharts
 {
 	/// <summary>
 	/// ![chart](../images/Bar.png)

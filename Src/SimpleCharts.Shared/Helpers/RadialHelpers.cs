@@ -1,7 +1,7 @@
 ﻿using System;
 using SkiaSharp;
 
-namespace Microcharts
+namespace SimpleCharts
 {
 	internal static class RadialHelpers
 	{

@@ -1,9 +1,10 @@
-# Microcharts
+# SimpleCharts
 
-This is a HardForm from Microcharts.
+This is a HardForm from [Microcharts](https://github.com/aloisdeniel/Microcharts).
+
 I have plans on making this super easy to use in Xamarin and Xamarin.Forms which will require a lot of major changes.
 
-**Microcharts** is an extremely simple charting library for a wide range of platforms (see *Compatibility* section below), with shared code and rendering for all of them!
+**SimpleCharts** is an extremely simple charting library for a wide range of platforms (see *Compatibility* section below), with shared code and rendering for all of them!
 
 ## Gallery
  
@@ -15,12 +16,12 @@ Available on NuGet
 
 **NET Standard 1.4, Xamarin.iOS, Xamarin.Android, UWP**
 
-[![NuGet](https://img.shields.io/nuget/v/Microcharts.svg?label=NuGet)](https://www.nuget.org/packages/Microcharts/)
+[![NuGet](https://img.shields.io/nuget/v/SimpleCharts.svg?label=NuGet)](https://www.nuget.org/packages/SimpleCharts/)
 
 
 **Xamarin.Forms (.NET Standard 1.4)**
 
-[![NuGet](https://img.shields.io/nuget/v/Microcharts.Forms.svg?label=NuGet)](https://www.nuget.org/packages/Microcharts.Forms/)
+[![NuGet](https://img.shields.io/nuget/v/SimpleCharts.Forms.svg?label=NuGet)](https://www.nuget.org/packages/SimpleCharts.Forms/)
 
 ## Quickstart
 
@@ -99,7 +100,7 @@ public override void ViewDidLoad()
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <microcharts.droid.ChartView
+        <SimpleCharts.droid.ChartView
             android:id="@+id/chartView"
             android:layout_width="match_parent"
             android:layout_height="160dp" />
@@ -128,16 +129,16 @@ protected override void OnCreate(Bundle savedInstanceState)
 
 ```xml
 <Page
-    x:Class="Microcharts.Samples.Uwp.MainPage"
+    x:Class="SimpleCharts.Samples.Uwp.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Microcharts.Samples.Uwp"
-    xmlns:microcharts="using:Microcharts.Uwp"
+    xmlns:local="using:SimpleCharts.Samples.Uwp"
+    xmlns:SimpleCharts="using:SimpleCharts.Uwp"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <microcharts:ChartView x:Name="chartView" />
+    <SimpleCharts:ChartView x:Name="chartView" />
 
 </Page>
 ```
@@ -160,11 +161,11 @@ public MainPage()
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-    xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms" 
-    xmlns:local="clr-namespace:Microcharts.Samples.Forms" 
-    x:Class="Microcharts.Samples.Forms.MainPage">
+    xmlns:SimpleCharts="clr-namespace:SimpleCharts.Forms;assembly=SimpleCharts.Forms" 
+    xmlns:local="clr-namespace:SimpleCharts.Samples.Forms" 
+    x:Class="SimpleCharts.Samples.Forms.MainPage">
 
-    <microcharts:ChartView x:Name="chartView" />
+    <SimpleCharts:ChartView x:Name="chartView" />
 
 </ContentPage>
 ```

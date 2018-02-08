@@ -1,6 +1,6 @@
 ﻿using SkiaSharp;
 
-namespace Microcharts
+namespace SimpleCharts
 {
 	public static class CanvasExtensions
 	{

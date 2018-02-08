@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using SkiaSharp;
 
-namespace Microcharts
+namespace SimpleCharts
 {
 	public abstract class Chart
 	{

@@ -1,4 +1,4 @@
-﻿namespace Microcharts
+﻿namespace SimpleCharts
 {
 	public enum LineMode
 	{

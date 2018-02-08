@@ -8,9 +8,9 @@ using SkiaSharp.Views.Mac;
 
 namespace
 #if __IOS__
-Microcharts.iOS
+SimpleCharts.iOS
 #else
-Microcharts.MacOS
+SimpleCharts.MacOS
 #endif
 
 {

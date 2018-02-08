@@ -2,7 +2,7 @@
 using System.Linq;
 using SkiaSharp;
 
-namespace Microcharts
+namespace SimpleCharts
 {
 	/// <summary>
 	/// ![chart](../images/Radar.png)

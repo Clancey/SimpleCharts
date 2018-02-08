@@ -1,6 +1,6 @@
 ﻿using SkiaSharp;
 
-namespace Microcharts
+namespace SimpleCharts
 {
 
 	/// <summary>
@@ -11,7 +11,7 @@ namespace Microcharts
 		#region Constructors
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="T:Microcharts.Entry"/> class.
+		/// Initializes a new instance of the <see cref="T:SimpleCharts.Entry"/> class.
 		/// </summary>
 		/// <param name="value">The entry value.</param>
 		public Entry(float value)
