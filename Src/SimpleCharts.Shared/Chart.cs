@@ -61,6 +61,7 @@ namespace SimpleCharts
 				if (notifiy != null)
 					notifiy.CollectionChanged += EntriesCollectionChanged;
 				entries = value;
+				cachedMaxValue = cachedMinValue = null;
 				DrawInvalidated?.Invoke();
 			}
 		}
@@ -85,13 +86,14 @@ namespace SimpleCharts
 				{
 					return 0;
 				}
-
+				if (cachedMinValue.HasValue)
+					return cachedMinValue.Value;
 				if (this.InternalMinValue == null)
 				{
-					return Math.Min(0, this.Entries.Min(x => GetValue(x)));
+					return (cachedMinValue = Math.Min(0, this.Entries?.Min(x => GetValue(x)) ?? 0)).Value;
 				}
 
-				return Math.Min(this.InternalMinValue.Value, this.Entries.Min(x => GetValue(x)));
+				return (cachedMinValue = Math.Min(this.InternalMinValue.Value, this.Entries?.Min(x => GetValue(x)) ?? 0)).Value;
 			}
 
 			set => this.InternalMinValue = value;
@@ -110,17 +112,21 @@ namespace SimpleCharts
 				{
 					return 0;
 				}
-
+				if (cachedMaxValue.HasValue)
+					return cachedMaxValue.Value;
 				if (this.InternalMaxValue == null)
 				{
-					return Math.Max(0, this.Entries.Max(x => GetValue(x)));
+					return (cachedMaxValue = Math.Max(0, this.Entries.Max(x => GetValue(x)))).Value;
 				}
 
-				return Math.Max(this.InternalMaxValue.Value, this.Entries.Max(x => GetValue(x)));
+				return (cachedMaxValue = Math.Max(this.InternalMaxValue.Value, this.Entries.Max(x => GetValue(x)))).Value;
 			}
 
 			set => this.InternalMaxValue = value;
 		}
+
+		protected float? cachedMaxValue;
+		protected float? cachedMinValue;
 
 		/// <summary>
 		/// Gets or sets the internal minimum value (that can be null).
@@ -220,8 +226,6 @@ namespace SimpleCharts
 			}
 		}
 
-
-
 		internal virtual float GetValue(object item)
 		{
 			var entry = item as Entry;
@@ -270,9 +274,9 @@ namespace SimpleCharts
 			return DefaultTextColor;
 		}
 
-		private void EntriesCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		protected virtual void EntriesCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			//Eventually notifiy what changed so animations can happen
+			cachedMaxValue = cachedMinValue = null;
 			DrawInvalidated?.Invoke();
 		}
 

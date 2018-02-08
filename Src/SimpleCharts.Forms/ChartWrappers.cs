@@ -135,6 +135,34 @@ namespace SimpleCharts.Forms
 	[Preserve (AllMembers = true)] 
 	public class LineChart : BaseChart<MLineChart>
 	{
+		public static readonly BindableProperty Value2PropertyProperty = BindableProperty.Create(nameof(Value2Property), typeof(string), typeof(LineChart), null);
+		public static readonly BindableProperty LineModeProperty = BindableProperty.Create(nameof(LineMode), typeof(LineMode), typeof(LineChart), LineMode.Spline);
+		public string Value2Property
+		{
+			get => (string)GetValue(Value2PropertyProperty);
+			set => SetValue(Value2PropertyProperty, value);
+		}
+		protected override void OnPropertyChanged(string propertyName = null)
+		{
+			base.OnPropertyChanged(propertyName);
+			if (propertyName == nameof(Value2Property))
+				Chart.Value2Property = Value2Property;
+			else if(propertyName == nameof(LineMode))
+				Chart.LineMode = LineMode;
+		}
+		public LineMode LineMode
+		{
+			get => (LineMode)GetValue(LineModeProperty);
+			set => SetValue(LineModeProperty, value);
+		}
+
+		protected override void OnBindingContextChanged()
+		{
+			base.OnBindingContextChanged();
+			Chart.Value2Property = Value2Property;
+			Chart.LineMode = LineMode;
+		}
+		
 		public static implicit operator MLineChart(LineChart chart)
 		{
 			return chart.Chart;
@@ -159,6 +187,25 @@ namespace SimpleCharts.Forms
 	[Preserve (AllMembers = true)] 
 	public class PointChart : BaseChart<MPointChart>
 	{
+		public static readonly BindableProperty Value2PropertyProperty = BindableProperty.Create(nameof(Value2Property), typeof(string), typeof(PointChart), null);
+		public string Value2Property
+		{
+			get => (string)GetValue(Value2PropertyProperty);
+			set => SetValue(Value2PropertyProperty, value);
+		}
+		protected override void OnPropertyChanged(string propertyName = null)
+		{
+			base.OnPropertyChanged(propertyName);
+			if (propertyName == nameof(Value2Property))
+				Chart.Value2Property = Value2Property;
+		}
+
+		protected override void OnBindingContextChanged()
+		{
+			base.OnBindingContextChanged();
+			Chart.Value2Property = Value2Property;
+		}
+
 		public static implicit operator MPointChart(PointChart chart)
 		{
 			return chart.Chart;

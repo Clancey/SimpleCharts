@@ -7,15 +7,15 @@
         <ScrollView>
             <StackLayout>
                 <Label Text="Generic Line Graph"/>
-                <!--<charts:ChartView MinimumHeightRequest="200" HeightRequest="200">
+                <charts:ChartView MinimumHeightRequest="200" HeightRequest="200">
                     <charts:ChartView.Chart>
                         <charts:LineChart Entries="{Binding GenericEntries}"/>
                     </charts:ChartView.Chart>
-                </charts:ChartView>-->
+                </charts:ChartView>
                  <Label Text="Auto-Updating Line Graph"/>
                 <charts:ChartView MinimumHeightRequest="200" HeightRequest="200">
                     <charts:ChartView.Chart>
-                        <charts:LineChart ValueProperty="Price" DefaultColor="Fuchsia" ValueLabelProperty="Price" LabelProperty="Symbol" Entries="{Binding Stocks}"/>
+                        <charts:LineChart ValueProperty="Price" LineMode="Straight" Value2Property="Time" DefaultColor="Fuchsia" ValueLabelProperty="Price" LabelProperty="Symbol" Entries="{Binding Stocks}"/>
                     </charts:ChartView.Chart>
                 </charts:ChartView>
             </StackLayout>

@@ -4,6 +4,7 @@ using SkiaSharp;
 using SimpleChartsSampleForms.Models;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 namespace SimpleChartsSampleForms.ViewModels
 {
 	public class GraphsViewModel : BaseViewModel
@@ -29,7 +30,7 @@ namespace SimpleChartsSampleForms.ViewModels
 			},
 		};
 
-		public ObservableCollection<StockPrice> Stocks { get; } = new ObservableCollection<StockPrice>();
+		public FixedSizeObservableCollection<StockPrice> Stocks { get; } = new FixedSizeObservableCollection<StockPrice>(10);
 
 		public GraphsViewModel()
 		{
@@ -47,7 +48,7 @@ namespace SimpleChartsSampleForms.ViewModels
 					Symbol = "FAKE",
 					Time = (DateTime.Now - start).TotalSeconds
 				});
-				await Task.Delay(1000);
+				await Task.Delay(rand.Next(500,1500));
 			}
 		}
 	}

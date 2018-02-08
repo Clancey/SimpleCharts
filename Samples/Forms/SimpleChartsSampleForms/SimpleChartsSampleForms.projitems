@@ -24,6 +24,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\GraphsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Data.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\StockPrice.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\FixedSizeObservableCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\AboutPage.xaml" />
@@ -36,5 +37,6 @@
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Models\" />
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Helpers\" />
   </ItemGroup>
 </Project>
