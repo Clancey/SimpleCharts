@@ -1,5 +1,6 @@
 ﻿using Xamarin.Forms;
 using SkiaSharp.Views.Forms;
+using System;
 
 namespace SimpleCharts.Forms
 {
@@ -61,6 +62,7 @@ namespace SimpleCharts.Forms
 				if (oldChart != null)
 					oldChart.DrawInvalidated = null;
 			}
+			Console.WriteLine(propertyName);
 			base.OnPropertyChanging(propertyName);
 		}
 		protected override void OnBindingContextChanged()

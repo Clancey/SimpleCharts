@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:charts="clr-namespace:SimpleCharts.Forms;assembly=SimpleCharts.Forms"
+    x:Class="SimpleChartsSampleForms.Views.GraphsPage">
+	<ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <Label Text="Generic Line Graph"/>
+                <!--<charts:ChartView MinimumHeightRequest="200" HeightRequest="200">
+                    <charts:ChartView.Chart>
+                        <charts:LineChart Entries="{Binding GenericEntries}"/>
+                    </charts:ChartView.Chart>
+                </charts:ChartView>-->
+                 <Label Text="Auto-Updating Line Graph"/>
+                <charts:ChartView MinimumHeightRequest="200" HeightRequest="200">
+                    <charts:ChartView.Chart>
+                        <charts:LineChart ValueProperty="Price" DefaultColor="Fuchsia" ValueLabelProperty="Price" LabelProperty="Symbol" Entries="{Binding Stocks}"/>
+                    </charts:ChartView.Chart>
+                </charts:ChartView>
+            </StackLayout>
+        </ScrollView>
+	</ContentPage.Content>
+</ContentPage>

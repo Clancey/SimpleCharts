@@ -92,6 +92,7 @@ namespace SimpleCharts.Forms
 
 		protected override void OnPropertyChanging(string propertyName = null)
 		{
+			Console.WriteLine(propertyName);
 			base.OnPropertyChanging(propertyName);
 
 			if (Chart == null)
