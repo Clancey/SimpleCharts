@@ -90,10 +90,10 @@ namespace SimpleCharts.Forms
 		}
 		public T Chart { get; set; } = new T();
 
-		protected override void OnPropertyChanging(string propertyName = null)
+		protected override void OnPropertyChanged(string propertyName = null)
 		{
 			Console.WriteLine(propertyName);
-			base.OnPropertyChanging(propertyName);
+			base.OnPropertyChanged(propertyName);
 
 			if (Chart == null)
 				return;
