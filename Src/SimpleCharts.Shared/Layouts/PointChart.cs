@@ -46,7 +46,7 @@ namespace SimpleCharts
 		{
 			get
 			{
-				if (!this.Entries.Any())
+				if (!(this.Entries?.Any() ?? false))
 				{
 					return 0;
 				}
@@ -74,7 +74,7 @@ namespace SimpleCharts
 		{
 			get
 			{
-				if (!this.Entries.Any())
+				if (!(this.Entries?.Any() ?? false))
 				{
 					return 0;
 				}
