@@ -62,7 +62,6 @@ namespace SimpleCharts.Forms
 				if (oldChart != null)
 					oldChart.DrawInvalidated = null;
 			}
-			Console.WriteLine(propertyName);
 			base.OnPropertyChanging(propertyName);
 		}
 		protected override void OnBindingContextChanged()

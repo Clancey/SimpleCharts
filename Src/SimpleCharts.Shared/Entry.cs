@@ -29,7 +29,11 @@ namespace SimpleCharts
 		/// <value>The value.</value>
 		public float Value { get; }
 
-		public float Value2 { get; }
+		/// <summary>
+		/// Gets the secondary value.
+		/// </summary>
+		/// <value>The secondary value.</value>
+		public float Value2 { get; set;}
 
 		/// <summary>
 		/// Gets or sets the caption label.

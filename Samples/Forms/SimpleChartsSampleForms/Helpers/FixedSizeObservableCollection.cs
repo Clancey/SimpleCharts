@@ -2,8 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Linq;
-using System.Collections.Specialized;
-namespace System.Collections.Generic
+namespace System.Collections.Specialized
 {
 	public class FixedSizeObservableCollection<T> : ObservableCollection<T>
 	{
